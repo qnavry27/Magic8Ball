@@ -2,6 +2,9 @@
  /// The player has the possiblity to provide any question and in return
  /// receives an randomly chosen answer (yes or no) from 20 possible choices.
  
+ use rand::seq::SliceRandom;
+
+ #[derive(Debug, Clone, Copy)]
  enum Answers {
     ItIsCetain,
     ItIsDecidedlySo,
@@ -53,7 +56,39 @@
     }
     pub fn shake() -> Self{
         // Randomly choose one of the replies.
+        let mut rng = rand::thread_rng();
+        let answers: [Answers; 20] = [
+            Self::ItIsCetain,
+            Self::ItIsDecidedlySo,
+            Self::WithoutADoubt,
+            Self::YesDefinitely,
+            Self::YouMayRelyOnIt,
+            Self::AsIseeItYes,
+            Self::MostLikely,
+            Self::OutlookGood,
+            Self::Yes,
+            Self::SignsPointToYes,
+            Self::ReplyHazyTryAgain,
+            Self::AskAgainLater,
+            Self::BetterNotTellYouNow,
+            Self::CannotPredcitNow,
+            Self::ConcentrateAndAskAgain,
+            Self::DontCountOnIt,
+            Self::MyReplyIsNo,
+            Self::MySourcesSayNo,
+            Self::OutlookNotSoGood,
+            Self::VeryDoubtful,
+        ];
+        *answers.choose(&mut rng).unwrap()
     }
- }
+}
+ 
 fn main() {
+    // ADD INPUT
+    println!("Your question is");
+    println!("Shaking the Magic 8 Ball...\n");
+
+    let answer = Answers::shake();
+
+    println!("Answer: {}", answer.as_string());
 }
